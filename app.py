@@ -99,7 +99,7 @@ class Eval(Base):
 @st.cache_resource
 def get_factory():
     url = cfg("DATABASE_URL", "sqlite:///data.db")
-    url = re.sub(r"^postgres(ql)?(\+\w+)?://", "postgresql://", url.strip())  # dùng psycopg2
+    url = re.sub(r"^postgres(ql)?(\+\w+)?://", "postgresql+psycopg2://", url.strip())  # ép dùng psycopg2
     eng = create_engine(url, pool_pre_ping=True, pool_recycle=300)
     Base.metadata.create_all(eng)
     f = sessionmaker(eng, expire_on_commit=False)
